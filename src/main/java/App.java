@@ -27,6 +27,8 @@ public class App {
       Rectangle rectangle = new Rectangle( lengthInt, widthInt);
       model.put("side-one", length);
       model.put("side-two", width);
+      boolean answer = rectangle.isSquare();
+      model.put("answer", answer);
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
   }
