@@ -17,20 +17,28 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    get("/answer", (request, response) -> {
+    get("/rectangle", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
-      model.put("template", "templates/answer.vtl");
-      String length = request.queryParams("side-one");
-      Integer lengthInt = Integer.parseInt(length);
-      String width = request.queryParams("side-two");
-      Integer widthInt = Integer.parseInt(width);
-      Rectangle rectangle = new Rectangle( lengthInt, widthInt);
-      model.put("side-one", length);
-      model.put("side-two", width);
-      boolean answer = rectangle.isSquare();
-      model.put("answer", answer);
+      int length = Integer.parseInt(request.queryParams("side-one"));
+      int width = Integer.parseInt(request.queryParams("side-two"));
+
+      Rectangle myRectangle = new Rectangle(length, width);
+      model.put("myRectangle", myRectangle);
+
+      if (myRectangle.isSquare()) {
+        Cube myCube = new Cube(myRectangle);
+        model.put("myCube", myCube);
+      }
+
+
+    model.put("template", "templates/rectangle.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
+
+    //   boolean answer = rectangle.isSquare();
+    //   model.put("answer", answer);
+    //   return new ModelAndView(model, layout);
+    // }, new VelocityTemplateEngine());
   }
 }
 
